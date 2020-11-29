@@ -2,5 +2,22 @@
 {% load static %}
 
 {% block content %}
-    <p>Store</p>
+<div class="row">
+    <div class="col col-xl-3 col-lg-3 col-md-4 col-sm-12 d-flex align-items-stretch">
+        <div class="card border-secondary mb-3" style="width: 18rem;">
+            <img class="card-img-top" src="{% static 'images/card-thumbnail.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Costo</h5>
+                <p class="card-text">
+                    Producto
+                </p>
+            </div>
+            <hr />
+            <div class="card-body">
+                <button type="button" class="card-link btn btn-outline-secondary">Ver</button>
+                <button type="button" class="card-link btn btn-outline-success">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}

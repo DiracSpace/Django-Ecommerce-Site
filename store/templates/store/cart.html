@@ -2,5 +2,50 @@
 {% load static %}
 
 {% block content %}
-    <p>Cart</p>
+<div class="card">
+    <div class="card-header">
+        <a class="card-link btn btn-outline-secondary" href="{% url 'store' %}" role="button"><i class="fas fa-arrow-left"></i>
+            Regresar</a>
+    </div>
+    <div class="container card-body align-center">
+        <div class="row">
+            <div class="col">
+                <h2>Cantidad total</h2>
+                <p id="totalproducts"></p>
+            </div>
+            <div class="col">
+                <h2>Total final</h2>
+                <p id="topay"></p>
+            </div>
+            <div class="col">
+                <button type="button" class="card-link btn btn-outline-success">Regresar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div class="card">
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">producto</th>
+                    <td><span>$</span>precio</td>
+                    <td>cantidad</td>
+                    <td><span>$</span>total</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock content %}
