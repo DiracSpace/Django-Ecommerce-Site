@@ -1,8 +1,6 @@
 document.querySelectorAll('.update-cart').forEach(element => {
     element.addEventListener('click', () => {
-        console.log(user + ' wants to ' + element.dataset.action + " " + element.dataset.product);
         if (user === 'AnonymousUser') {
-            console.log('Not logged in: ' + user);
         } else {
             updateCart(element.dataset.product, element.dataset.action);
         }
@@ -12,7 +10,6 @@ document.querySelectorAll('.update-cart').forEach(element => {
 function updateCart(id, action) {
     const csrftoken = Cookies.get('csrftoken');
 
-    console.log('sending payload ... ');
     const payload = {
         pid: id,
         action: action
@@ -28,7 +25,6 @@ function updateCart(id, action) {
     })
     .then(response => response.json())
     .then(json => {
-        console.log(json);
         location.reload();
     });
 }
