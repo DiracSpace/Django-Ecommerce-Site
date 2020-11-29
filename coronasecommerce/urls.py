@@ -6,4 +6,6 @@ from django.urls import path, re_path, include
 urlpatterns = [
     path('admin/', admin.site.urls, name="adminpanel"),
     re_path('', include('store.urls')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -36,27 +36,14 @@
         </tr>
     </thead>
     <tbody>
+        {% for item in items %}
         <tr>
-            <th scope="row"><img class="table-img" src="{% static 'images/card-thumbnail.jpg' %}" /></th>
-            <td><span>$</span>precio</td>
-            <td>
-                <div class="form-group">
-                    <select class="form-control" id="exampleFormControlSelect1">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                        <option>10</option>
-                    </select>
-                </div>
-            </td>
+            <th scope="row"><img class="table-img" src="{{item.product.imageURL}}" /></th>
+            <td><span>$</span>{{item.product.price|floatformat:2}}</td>
+            <td>{{item.quantity}}</td>
             <td><span>$</span>total</td>
         </tr>
+        {% endfor%}
     </tbody>
 </table>
 {% endblock content %}
