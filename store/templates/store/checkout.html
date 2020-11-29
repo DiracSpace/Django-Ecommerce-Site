@@ -55,17 +55,18 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for item in items %}
                         <tr>
-                            <th scope="row"><img class="table-img" src="{% static 'images/card-thumbnail.jpg' %}" />
-                            </th>
-                            <td><span>producto</span></td>
-                            <td><span>precio</span></td>
-                            <td><span>cantidad</span></td>
+                            <th scope="row"><img class="table-img" src="{{item.product.imageURL}}" /></th>
+                            <td><span>$</span>{{item.product.price|floatformat:2}}</td>
+                            <td>{{item.quantity}}</td>
+                            <td><span>$</span>{{item.get_total}}</td>
                         </tr>
+                        {% endfor%}
                     </tbody>
                 </table>
-                <h4>Cantidad Total: <span>$</span></h4>
-                <h4>Total Final: <span>$</span></h4>
+                <h4>Cantidad Total: {{order.get_cart_items}}</h4>
+                <h4>Total Final: <span>$</span>{{order.get_cart_total|floatformat:2}}</h4>
             </div>
         </div>
     </div>

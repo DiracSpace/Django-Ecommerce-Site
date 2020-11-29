@@ -21,6 +21,7 @@
     <!-- external css -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous" />
+    <script type="text/javascript"> var user = '{{request.user}}'; </script>
 </head>
 
 <body>
@@ -44,7 +45,7 @@
                     <li class="nav-item mx-3">
                         <form class="form-inline my-2 my-lg-0">
                             <a href="{% url 'cart' %}"><i id="cart" class="fas fa-shopping-cart"></i></a>
-                            <p id="cart-total">0</p>
+                            <p id="cart-total">{{cartItems}}</p>
                         </form>
                     </li>
                 </ul>
@@ -57,8 +58,6 @@
 
         {% endblock content %}
     </div>
-    <!-- internal js -->
-    <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
     <!-- external js -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -66,6 +65,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <!-- internal js -->
+    <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
 </body>
 
 </html>
