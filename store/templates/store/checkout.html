@@ -2,5 +2,72 @@
 {% load static %}
 
 {% block content %}
-    <p>Checkout</p>
+<div class="row">
+    <div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <form class="form-inline">
+            <div class="form-group mb-2">
+                <input type="name" class="form-control" id="name" placeholder="Nombre" />
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="email" class="form-control" id="email" placeholder="Correo" />
+            </div>
+        </form>
+        <br />
+        <h3>Informacion de Envio</h3>
+        <hr />
+        <br />
+        <form class="form-inline">
+            <div class="form-group mb-2">
+                <input type="address" class="form-control" id="address" placeholder="Direccion" />
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="city" class="form-control" id="city" placeholder="Ciudad" />
+            </div>
+            <div class="form-group mb-2">
+                <input type="name" class="form-control" id="state" placeholder="Estado" />
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="zip" class="form-control" id="zip" placeholder="Codigo Postal" />
+            </div>
+        </form>
+        <hr />
+        <br />
+        <a class="btn btn-secondary btn-lg btn-block" href="#" role="button">Comprar</a>
+    </div>
+    <div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <a class="card-link btn btn-outline-secondary" href="{% url 'cart' %}" role="button"><i
+                        class="fas fa-arrow-left"></i>
+                    Regresar a carrito</a>
+            </div>
+            <div class="card-body">
+                <h3>Resumen del Pedido</h3>
+                <hr />
+                <br />
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row"><img class="table-img" src="{% static 'images/card-thumbnail.jpg' %}" />
+                            </th>
+                            <td><span>producto</span></td>
+                            <td><span>precio</span></td>
+                            <td><span>cantidad</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Cantidad Total: <span>$</span></h4>
+                <h4>Total Final: <span>$</span></h4>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}
