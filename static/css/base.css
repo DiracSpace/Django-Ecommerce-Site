@@ -2,3 +2,17 @@
     margin: 0;
     padding: 0;
 }
+
+#cart { color: white !important; }
+#cart-total {
+	display: block;
+	text-align: center;
+	color:#fff;
+	background-color: red;
+	width: 20px;
+	height: 25px;
+	border-radius: 50%;
+	font-size: 14px;
+}
+.card-body { padding: 0.5rem !important; }
+hr { margin-top: 0.5rem !important; margin-bottom: 0.5rem !important; }
