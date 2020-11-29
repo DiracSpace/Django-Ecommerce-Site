@@ -11,10 +11,10 @@
     <div class="card-body">
         <div class="row" style="text-align: center;">
             <div class="col col-xl-3 col-lg-3 col-md-4 col-sm-12">
-                <p>Cantidad Total: <span>$30</span></p>
+                <p>Cantidad Total:{{order.get_cart_items}}</p>
             </div>
             <div class="col col-xl-3 col-lg-3 col-md-4 col-sm-12">
-                <p>Total Final: <span>$30</span></p>
+                <p>Total Final: <span>$</span>{{order.get_cart_total|floatformat:2}}</p>
                 <p id="topay"></p>
             </div>
             <div class="col col-xl-3 col-lg-3 col-md-4 col-sm-12">
@@ -41,7 +41,7 @@
             <th scope="row"><img class="table-img" src="{{item.product.imageURL}}" /></th>
             <td><span>$</span>{{item.product.price|floatformat:2}}</td>
             <td>{{item.quantity}}</td>
-            <td><span>$</span>total</td>
+            <td><span>$</span>{{item.get_total}}</td>
         </tr>
         {% endfor%}
     </tbody>
