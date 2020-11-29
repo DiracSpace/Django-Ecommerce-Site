@@ -16,3 +16,9 @@
 }
 .card-body { padding: 0.5rem !important; }
 hr { margin-top: 0.5rem !important; margin-bottom: 0.5rem !important; }
+
+img.table-img { 
+	display: inline-block;
+	height: 70px;
+	width: 70px;
+}
