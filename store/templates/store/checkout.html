@@ -12,27 +12,32 @@
                 <input type="email" class="form-control" id="email" placeholder="Correo" />
             </div>
         </form>
-        <br />
-        <h3>Informacion de Envio</h3>
+        <div id="shipping-info">
+            <br />
+            <h3>Informacion de Envio</h3>
+            <hr />
+            <br />
+            <form class="form-inline" id="checkoutForm">
+                <div class="form-group mb-2">
+                    <input type="address" class="form-control" id="address" placeholder="Direccion" />
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <input type="city" class="form-control" id="city" placeholder="Ciudad" />
+                </div>
+                <div class="form-group mb-2">
+                    <input type="name" class="form-control" id="state" placeholder="Estado" />
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <input type="zip" class="form-control" id="zip" placeholder="Codigo Postal" />
+                </div>
+            </form>
+        </div>
         <hr />
+        <div class="box-element d-none" id="payment-info">
+            <small>Paypal Options</small>
+        </div>
         <br />
-        <form class="form-inline">
-            <div class="form-group mb-2">
-                <input type="address" class="form-control" id="address" placeholder="Direccion" />
-            </div>
-            <div class="form-group mx-sm-3 mb-2">
-                <input type="city" class="form-control" id="city" placeholder="Ciudad" />
-            </div>
-            <div class="form-group mb-2">
-                <input type="name" class="form-control" id="state" placeholder="Estado" />
-            </div>
-            <div class="form-group mx-sm-3 mb-2">
-                <input type="zip" class="form-control" id="zip" placeholder="Codigo Postal" />
-            </div>
-        </form>
-        <hr />
-        <br />
-        <a class="btn btn-secondary btn-lg btn-block" href="#" role="button">Comprar</a>
+        <input id="btnSubmit" class="btn btn-secondary btn-lg btn-block" type="submit" value="Continue"></input>
     </div>
     <div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12">
         <div class="card">
@@ -71,4 +76,20 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    var shipping = '{{order.shipping}}';
+    if (shipping === 'False') {
+        document.getElementById('#shipping-info').innerHTML = '';
+    }
+    
+    var btn = document.getElementById('btnSubmit');
+    btn.addEventListener('click', function(e) {
+        var form = document.getElementById('checkoutForm');
+        form = function() {
+            document.getElementById('btnSubmit').classList.add('d-none');
+            document.getElementById('payment-info').classList.remove('d-none');
+        };
+        form();
+    });
+</script>
 {% endblock content %}

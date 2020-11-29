@@ -67,3 +67,12 @@ class ShippingAddress(models.Model):
 
     def __str__(self):
         return self.address
+
+    @property
+    def doShipping(self):
+        shipping = False
+        orderitems = self.orderitem_set.all()
+        for item in orderitems:
+            if item.product.digital == False:
+                shipping = True
+        return shipping
