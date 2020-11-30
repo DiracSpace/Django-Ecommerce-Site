@@ -15,9 +15,38 @@
             </div>
             <hr />
             <div class="card-body">
-                <button type="button" class="card-link btn btn-outline-secondary">Ver</button>
+                <button data-toggle="modal" data-target="#explanation" type="button"
+                    class="card-link btn btn-outline-secondary">Ver</button>
                 <button data-product="{{product.id}}" data-action="add" type="button"
                     class="card-link btn btn-outline-success update-cart">Agregar</button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="explanation" tabindex="-1" role="dialog" aria-labelledby="productinfo"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">{{product.name}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12 d-flex align-items-stretch">
+                            <img src="{{product.imageURL}}" alt="{{product.id}}" class="img-thumbnail">
+                        </div>
+                        <div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12 d-flex align-items-stretch">
+                            {{product.description}}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Regresar</button>
+                    <button type="button" class="btn btn-primary">Aceptar</button>
+                </div>
             </div>
         </div>
     </div>

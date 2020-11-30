@@ -4,15 +4,16 @@ from django.db import models
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=200, null=True)
-    email = models.CharField(max_length=200, null=True)
+    email = models.EmailField(max_length=254, null=True, unique=True)
 
     def __str__(self):
         return self.name
 
 class Product(models.Model):
     name = models.CharField(max_length=200, null=True)
-    price = models.FloatField(null=True, default=0)
+    price = models.DecimalField(max_digits=7, decimal_places=2, null=True)
     digital = models.BooleanField(default=False, null=True, blank=False)
+    description = models.TextField(max_length=1000, null=True, blank=True)
     thumbnail = models.ImageField(default='/images/card-thumbnail.jpg', null=True, blank=True)
 
     def __str__(self):

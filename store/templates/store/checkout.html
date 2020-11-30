@@ -56,19 +56,19 @@
                     </div>
                 </div>
             </div>
-            <button id="btnSubmit" class="btn btn-secondary btn-lg btn-block" type="submit">Continuar</button>
         </form>
+        <button id="btnSubmit" class="btn btn-secondary btn-lg btn-block" type="submit">Continuar</button>
         <hr />
         <div id="payment-info" class="box-element d-none">
             <small>Paypal Options</small>
-            <input id="makePayment" class="btn btn-secondary" type="submit" value="Pagar"></input>
+            <a id="makePayment" class="btn btn-secondary" href="#" role="button">Pagar</a>
         </div>
         <br />
     </div>
     <div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12">
         <div class="card">
             <div class="card-header">
-                <a class="card-link btn btn-outline-secondary" href="{% url 'cart' %}" role="button"><i
+                <a class="card-link btn btn-outline-secondary" href="{% url 'coronas:cart' %}" role="button"><i
                         class="fas fa-arrow-left"></i>
                     Regresar a carrito</a>
             </div>
@@ -104,30 +104,28 @@
 </div>
 <script type="text/javascript">
     var shipping = '{{order.shipping}}';
-    var total = '{{order.get_cart_total|floatformat:2}}';
-    var chkoutform = document.getElementById('checkoutForm');
+    var total = '{{order.get_cart_total}}';
+    const forminstance = document.querySelector('#order-info');
 
-    if (shipping == 'False') { 
+    if (shipping == 'False') {
         document.querySelectorAll('.shipping-info').forEach(option => {
             option.classList.add('d-none');
         });
     }
 
-    if (user != 'AnonymousUser') { 
-        document.getElementById('user-info').innerHTML = ''; 
+    if (user != 'AnonymousUser') {
+        document.getElementById('user-info').innerHTML = '';
     }
 
     if (shipping == 'True' && user != 'AnonymousUser') {
         document.getElementById('user-info').classList.add('d-none');
-        document.querySelectorAll('.shipping-info').forEach(option => { 
-            option.classList.remove('d-none'); 
+        document.querySelectorAll('.shipping-info').forEach(option => {
+            option.classList.remove('d-none');
         });
-        document.getElementById('payment-info').classList.remove('d-none');
     }
 
-    const forminstance = document.querySelector('#order-info');
-    forminstance.addEventListener('submit', (e) => {
-        e.preventDefault();
+    const continueBtn = document.getElementById('btnSubmit');
+    continueBtn.addEventListener('click', (e) => {
         document.getElementById('btnSubmit').classList.add('d-none');
         document.getElementById('payment-info').classList.remove('d-none');
     });
@@ -178,7 +176,7 @@
         .then((response) => response.json())
         .then((json) => {
             console.log('state: ', json);
-            setTimeout(() => { window.location.href = "{% url 'store' %}" }, 2500);
+            setTimeout(() => { window.location.href = "{% url 'coronas:store' %}" }, 2500);
         });
     }
 </script>

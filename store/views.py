@@ -25,9 +25,17 @@ def Cart(request):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
+        try:
+            cart = json.loads(request.COOKIES['cart'])
+            print (cart)
+        except: 
+            cart = {}
         items = []
         order = {'get_cart_total' : 0, 'get_cart_items' : 0}
         cartItems = order['get_cart_items']
+
+        for item in cart:
+            cartItems += cart[item]['quantity']
     
     context = {'items' : items, 'order' : order, 'cartItems' : cartItems, 'shipping' : False}
     return render(request, 'store/cart.html', context)
@@ -72,13 +80,14 @@ def updateItem(request):
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
+
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         total = float(data['form']['total'])
         order.transaction_id = transaction_id
 
-        if total == order.get_cart_total:
+        if total == float(order.get_cart_total):
             order.complete = True
         order.save()
 
@@ -89,7 +98,7 @@ def processOrder(request):
                 address = data['shipping']['address'],
                 city = data['shipping']['city'],
                 state = data['shipping']['state'],
-                zipcode = data['shipping']['zip']
+                zipcode = data['shipping']['zipcode']
             )
         
     else:
