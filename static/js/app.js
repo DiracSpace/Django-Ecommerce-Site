@@ -1,3 +1,9 @@
+if (user != 'AnonymousUser') { 
+    document.getElementById("loginBtn").children[0].style.display = "none";
+} else {
+    document.getElementById("userdisplay").children[0].style.display = "none";
+}
+
 document.querySelectorAll('.update-cart').forEach(element => {
     element.addEventListener('click', () => {
         if (user === 'AnonymousUser') {
