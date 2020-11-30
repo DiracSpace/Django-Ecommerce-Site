@@ -4,40 +4,66 @@
 {% block content %}
 <div class="row">
     <div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12">
-        <form class="form-inline">
-            <div class="form-group mb-2">
-                <input type="name" class="form-control" id="name" placeholder="Nombre" />
+        <form id="order-info" class="needs-validation" novalidate>
+            <div class="form-row" id="user-info">
+                <div class="col-md-6 mb-3">
+                    <label for="name">Nombre: </label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                    <div class="valid-feedback">
+                        Ingrese su nombre!
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="email">Correo: </label>
+                    <input type="text" class="form-control" id="email" name="email" required>
+                    <div class="valid-feedback">
+                        Ingrese su correo!
+                    </div>
+                </div>
             </div>
-            <div class="form-group mx-sm-3 mb-2">
-                <input type="email" class="form-control" id="email" placeholder="Correo" />
+            <br />
+            <h3 class="shipping-info">Informacion de Envio</h3>
+            <div class="form-row shipping-info">
+                <div class="col-md-12 mb-12">
+                    <label for="address">Direccion: </label>
+                    <input type="text" class="form-control" id="address" name="address" required>
+                    <div class="invalid-feedback">
+                        No valido!
+                    </div>
+                </div>
             </div>
+            <br />
+            <div class="form-row shipping-info">
+                <div class="col-md-6 mb-3">
+                    <label for="state">Estado</label>
+                    <input type="text" class="form-control" id="state" name="state" required>
+                    <div class="invalid-feedback">
+                        No valido!
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="city">Ciudad: </label>
+                    <input type="text" class="form-control" id="city" name="city" required>
+                    <div class="invalid-feedback">
+                        No valido!
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="zip">Postal: </label>
+                    <input type="text" class="form-control" id="zip" name="zip" required>
+                    <div class="invalid-feedback">
+                        No valido!
+                    </div>
+                </div>
+            </div>
+            <button id="btnSubmit" class="btn btn-secondary btn-lg btn-block" type="submit">Continuar</button>
         </form>
-        <div id="shipping-info">
-            <br />
-            <h3>Informacion de Envio</h3>
-            <hr />
-            <br />
-            <form class="form-inline" id="checkoutForm">
-                <div class="form-group mb-2">
-                    <input type="address" class="form-control" id="address" placeholder="Direccion" />
-                </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <input type="city" class="form-control" id="city" placeholder="Ciudad" />
-                </div>
-                <div class="form-group mb-2">
-                    <input type="name" class="form-control" id="state" placeholder="Estado" />
-                </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <input type="zip" class="form-control" id="zip" placeholder="Codigo Postal" />
-                </div>
-            </form>
-        </div>
         <hr />
-        <div class="box-element d-none" id="payment-info">
+        <div id="payment-info" class="box-element d-none">
             <small>Paypal Options</small>
+            <input id="makePayment" class="btn btn-secondary" type="submit" value="Pagar"></input>
         </div>
         <br />
-        <input id="btnSubmit" class="btn btn-secondary btn-lg btn-block" type="submit" value="Continue"></input>
     </div>
     <div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12">
         <div class="card">
@@ -78,18 +104,82 @@
 </div>
 <script type="text/javascript">
     var shipping = '{{order.shipping}}';
-    if (shipping === 'False') {
-        document.getElementById('#shipping-info').innerHTML = '';
+    var total = '{{order.get_cart_total|floatformat:2}}';
+    var chkoutform = document.getElementById('checkoutForm');
+
+    if (shipping == 'False') { 
+        document.querySelectorAll('.shipping-info').forEach(option => {
+            option.classList.add('d-none');
+        });
     }
-    
-    var btn = document.getElementById('btnSubmit');
-    btn.addEventListener('click', function(e) {
-        var form = document.getElementById('checkoutForm');
-        form = function() {
-            document.getElementById('btnSubmit').classList.add('d-none');
-            document.getElementById('payment-info').classList.remove('d-none');
-        };
-        form();
+
+    if (user != 'AnonymousUser') { 
+        document.getElementById('user-info').innerHTML = ''; 
+    }
+
+    if (shipping == 'True' && user != 'AnonymousUser') {
+        document.getElementById('user-info').classList.add('d-none');
+        document.querySelectorAll('.shipping-info').forEach(option => { 
+            option.classList.remove('d-none'); 
+        });
+        document.getElementById('payment-info').classList.remove('d-none');
+    }
+
+    const forminstance = document.querySelector('#order-info');
+    forminstance.addEventListener('submit', (e) => {
+        e.preventDefault();
+        document.getElementById('btnSubmit').classList.add('d-none');
+        document.getElementById('payment-info').classList.remove('d-none');
     });
+
+    const paymentBtn = document.getElementById('makePayment');
+    paymentBtn.addEventListener('click', function () {
+        submitPayment();
+    });
+
+    function submitPayment() {
+        var userFormData = {
+            'name': null,
+            'email': null,
+            'total': total
+        }
+
+        var shippingFormData = {
+            'address': null,
+            'city': null,
+            'state': null,
+            'zipcode': null
+        }
+
+        if (shipping != 'False') {
+            shippingFormData.address = forminstance['address'].value
+            shippingFormData.city = forminstance['city'].value
+            shippingFormData.state = forminstance['state'].value
+            shippingFormData.zipcode = forminstance['zip'].value
+        }
+
+        if (user == 'AnonymousUser') {
+            userFormData.name = forminstance['name'].value;
+            userFormData.email = forminstance['email'].value;
+        }
+
+        console.log('Shipping: ' + JSON.stringify(shippingFormData));
+        console.log('User: ' + JSON.stringify(userFormData));
+
+        const csrftoken = Cookies.get('csrftoken');
+        fetch('http://127.0.0.1:8000/process_order/', {
+            method: 'POST',
+            body: JSON.stringify({ 'form': userFormData, 'shipping': shippingFormData }),
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+                'X-CSRFToken': csrftoken,
+            }
+        })
+        .then((response) => response.json())
+        .then((json) => {
+            console.log('state: ', json);
+            setTimeout(() => { window.location.href = "{% url 'store' %}" }, 2500);
+        });
+    }
 </script>
 {% endblock content %}
