@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 from .models import *
@@ -18,6 +19,7 @@ def Store(request):
     context = {'products' : products, 'cartItems' : cartItems, 'shipping' : False}
     return render(request, 'store/store.html', context)
 
+@login_required(login_url="/accounts/login")
 def Cart(request):
     if request.user.is_authenticated:
         customer = request.user.customer
@@ -25,13 +27,22 @@ def Cart(request):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
+        try:
+            cart = json.loads(request.COOKIES['cart'])
+            print (cart)
+        except: 
+            cart = {}
         items = []
         order = {'get_cart_total' : 0, 'get_cart_items' : 0}
         cartItems = order['get_cart_items']
+
+        for item in cart:
+            cartItems += cart[item]['quantity']
     
     context = {'items' : items, 'order' : order, 'cartItems' : cartItems, 'shipping' : False}
     return render(request, 'store/cart.html', context)
 
+@login_required(login_url="/accounts/login")
 def Checkout(request):
     if request.user.is_authenticated:
         customer = request.user.customer
@@ -46,6 +57,7 @@ def Checkout(request):
     context = {'items' : items, 'order' : order, 'cartItems' : cartItems, 'shipping' : False}
     return render(request, 'store/checkout.html', context)
 
+@login_required(login_url="/accounts/login")
 def updateItem(request):
     data = json.loads(request.body)
     productId = data['pid']
@@ -69,16 +81,18 @@ def updateItem(request):
     
     return JsonResponse("Item added", safe=False)
 
+@login_required(login_url="/accounts/login")
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
+
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         total = float(data['form']['total'])
         order.transaction_id = transaction_id
 
-        if total == order.get_cart_total:
+        if total == float(order.get_cart_total):
             order.complete = True
         order.save()
 
@@ -89,7 +103,7 @@ def processOrder(request):
                 address = data['shipping']['address'],
                 city = data['shipping']['city'],
                 state = data['shipping']['state'],
-                zipcode = data['shipping']['zip']
+                zipcode = data['shipping']['zipcode']
             )
         
     else:
