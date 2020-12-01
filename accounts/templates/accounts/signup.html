@@ -44,6 +44,9 @@
         <form action="{% url 'accounts:signup' %}" method="post">
             {% csrf_token %}
             {{ form }}
+            {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{request.GET.next}}" />
+            {% endif %}
             <button type="submit" class="btn btn-primary">Registrar</button>
         </form>
         <a href="{% url 'accounts:login' %}">Ya tienes una cuenta?</a>

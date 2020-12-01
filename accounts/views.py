@@ -10,7 +10,10 @@ def usersignup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect(request.POST.get('next')) if 'next' in request.POST else redirect('coronas:store')
+            if 'next' in request.POST:
+                return redirect(request.POST.get("next"))
+            else:
+                return redirect('coronas:store')
     else:
         form = UserCreationForm()
     context = {"form" : form}
@@ -22,7 +25,10 @@ def userlogin(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('coronas:store')
+            if 'next' in request.POST:
+                return redirect(request.POST.get("next"))
+            else:
+                return redirect('coronas:store')
     else:
         form = AuthenticationForm()
     context = {'form' : form}
