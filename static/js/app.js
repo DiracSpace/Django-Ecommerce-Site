@@ -1,6 +1,7 @@
-if (user != 'AnonymousUser') { 
+if (user != 'AnonymousUser') {
     document.getElementById("loginBtn").children[0].style.display = "none";
 } else {
+    document.getElementById("logoutBtn").children[0].style.display = "none";
     document.getElementById("userdisplay").children[0].style.display = "none";
 }
 

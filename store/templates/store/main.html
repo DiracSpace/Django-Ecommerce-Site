@@ -62,14 +62,14 @@
                     <li id="userdisplay" class="nav-item mx-3">
                         <a class="nav-link">{{user}}</a>
                     </li>
-                    <li id="userdisplay" class="nav-item mx-3">
-                        <a href="#" class="nav-link" id="signout">Logout</a>
-                    </li>
                     <li class="nav-item mx-3">
                         <form class="form-inline my-2 my-lg-0">
                             <a href="{% url 'coronas:cart' %}"><i id="cart" class="fas fa-shopping-cart"></i></a>
                             <p id="cart-total">{{cartItems}}</p>
                         </form>
+                    </li>
+                    <li id="logoutBtn" class="nav-item mx-3">
+                        <a href="{% url 'accounts:logout' %}" class="nav-link" id="signout">Logout</a>
                     </li>
                 </ul>
             </div>

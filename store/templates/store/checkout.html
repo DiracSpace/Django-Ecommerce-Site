@@ -61,7 +61,8 @@
         <hr />
         <div id="payment-info" class="box-element d-none">
             <small>Paypal Options</small>
-            <a id="makePayment" class="btn btn-secondary" href="#" role="button">Pagar</a>
+            <div id="paypal-button-container"></div>
+            <!-- <a id="makePayment" class="btn btn-secondary" href="#" role="button">Pagar</a> -->
         </div>
         <br />
     </div>
@@ -102,6 +103,37 @@
         </div>
     </div>
 </div>
+<script
+    src="https://www.paypal.com/sdk/js?client-id=Af2uuIBq2ZK2nT4TC0hOTUZ2m0Sw-ODPGDWy_OwVb0EjID4cRREtl9UdupxF3TZWwTJSK3DI1JjKhT2f&currency=MXN&disable-funding=credit"></script>
+<script>
+    var total = '{{order.get_cart_total}}';
+    // Render the PayPal button into #paypal-button-container
+    paypal.Buttons({
+        style: {
+            size: 'responsive',
+            color: 'black',
+            shape: 'pill',
+        },
+
+        // Set up the transaction
+        createOrder: function (data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: parseFloat(total).toFixed(2)
+                    }
+                }]
+            });
+        },
+
+        // Finalize the transaction
+        onApprove: function (data, actions) {
+            return actions.order.capture().then(function (details) {
+                submitPayment();
+            });
+        }
+    }).render('#paypal-button-container');
+</script>
 <script type="text/javascript">
     var shipping = '{{order.shipping}}';
     var total = '{{order.get_cart_total}}';
@@ -128,11 +160,6 @@
     continueBtn.addEventListener('click', (e) => {
         document.getElementById('btnSubmit').classList.add('d-none');
         document.getElementById('payment-info').classList.remove('d-none');
-    });
-
-    const paymentBtn = document.getElementById('makePayment');
-    paymentBtn.addEventListener('click', function () {
-        submitPayment();
     });
 
     function submitPayment() {
@@ -173,11 +200,11 @@
                 'X-CSRFToken': csrftoken,
             }
         })
-        .then((response) => response.json())
-        .then((json) => {
-            console.log('state: ', json);
-            setTimeout(() => { window.location.href = "{% url 'coronas:store' %}" }, 2500);
-        });
+            .then((response) => response.json())
+            .then((json) => {
+                console.log('state: ', json);
+                setTimeout(() => { window.location.href = "{% url 'coronas:store' %}" }, 2500);
+            });
     }
 </script>
 {% endblock content %}

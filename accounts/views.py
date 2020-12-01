@@ -29,7 +29,7 @@ def userlogin(request):
     return render(request, 'accounts/login.html', context)
 
 def userlogout(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
         logout(request)
         return redirect('coronas:store')
 

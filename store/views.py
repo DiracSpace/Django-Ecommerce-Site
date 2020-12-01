@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 from .models import *
@@ -18,6 +19,7 @@ def Store(request):
     context = {'products' : products, 'cartItems' : cartItems, 'shipping' : False}
     return render(request, 'store/store.html', context)
 
+@login_required(login_url="/accounts/login")
 def Cart(request):
     if request.user.is_authenticated:
         customer = request.user.customer
@@ -40,6 +42,7 @@ def Cart(request):
     context = {'items' : items, 'order' : order, 'cartItems' : cartItems, 'shipping' : False}
     return render(request, 'store/cart.html', context)
 
+@login_required(login_url="/accounts/login")
 def Checkout(request):
     if request.user.is_authenticated:
         customer = request.user.customer
@@ -54,6 +57,7 @@ def Checkout(request):
     context = {'items' : items, 'order' : order, 'cartItems' : cartItems, 'shipping' : False}
     return render(request, 'store/checkout.html', context)
 
+@login_required(login_url="/accounts/login")
 def updateItem(request):
     data = json.loads(request.body)
     productId = data['pid']
@@ -77,6 +81,7 @@ def updateItem(request):
     
     return JsonResponse("Item added", safe=False)
 
+@login_required(login_url="/accounts/login")
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
