@@ -20,6 +20,17 @@ def Store(request):
     return render(request, 'store/store.html', context)
 
 @login_required(login_url="/accounts/login")
+def Dashboard(request):
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        orders = Order.objects.all()
+        for order in orders:
+            if order.complete == True and order.customer == customer:
+                items = list(OrderItem.objects.filter(order=order))
+    context = {'items' : items}
+    return render(request, 'store/dashboard.html', context)
+
+@login_required(login_url="/accounts/login")
 def Cart(request):
     if request.user.is_authenticated:
         customer = request.user.customer
@@ -27,11 +38,6 @@ def Cart(request):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
-        try:
-            cart = json.loads(request.COOKIES['cart'])
-            print (cart)
-        except: 
-            cart = {}
         items = []
         order = {'get_cart_total' : 0, 'get_cart_items' : 0}
         cartItems = order['get_cart_items']
@@ -105,7 +111,6 @@ def processOrder(request):
                 state = data['shipping']['state'],
                 zipcode = data['shipping']['zipcode']
             )
-        
     else:
         print ('user not logged in')
     return JsonResponse("payment accepted", safe=False)
