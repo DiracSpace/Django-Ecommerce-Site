@@ -1,6 +1,7 @@
 if (user != 'AnonymousUser') {
     document.getElementById("loginBtn").children[0].style.display = "none";
 } else {
+    document.getElementById("cartdisplay").children[0].style.display = "none";
     document.getElementById("dashboard").children[0].style.display = "none";
     document.getElementById("logoutBtn").children[0].style.display = "none";
     document.getElementById("userdisplay").children[0].style.display = "none";
@@ -8,35 +9,12 @@ if (user != 'AnonymousUser') {
 
 document.querySelectorAll('.update-cart').forEach(element => {
     element.addEventListener('click', () => {
-        if (user === 'AnonymousUser') {
-            addCookieItem(element.dataset.product, element.dataset.action);
-        } else {
+        if (user != 'AnonymousUser') {
             document.getElementById("signout").addEventListener("click", (e) => { document.getElementById("logout-action").submit(); });
             updateCart(element.dataset.product, element.dataset.action);
         }
     });
 });
-
-function addCookieItem(id, action) {
-    console.log('unauthenticated user is ' + action + ' product ' + id);
-    if (action == 'add') {
-        if (cart[id] == undefined) {
-            cart[id] = {'quantity' : 1};
-        } else {
-            cart[id] += 1;
-        }
-    }
-    
-    if (action == 'remove') {
-        cart[id]['quantity'] -= 1;
-        if (cart[id]['quantity'] <= 0) {
-            console.log('removing');
-            delete cart[id];
-        }
-    }
-    console.log('cart', cart);
-    document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/";
-}
 
 function updateCart(id, action) {
     const csrftoken = Cookies.get('csrftoken');
@@ -56,6 +34,7 @@ function updateCart(id, action) {
     })
     .then((response) => response.json())
     .then((json) => {
+        console.log(json);
         location.reload();
     });
 }

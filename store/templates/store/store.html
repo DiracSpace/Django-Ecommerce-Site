@@ -15,7 +15,7 @@
             </div>
             <hr />
             <div class="card-body">
-                <button data-toggle="modal" data-target="#explanation" type="button"
+                <button data-toggle="modal" data-target="#modal-{{product.id}}" type="button"
                     class="card-link btn btn-outline-secondary">Ver</button>
                 <button data-product="{{product.id}}" data-action="add" type="button"
                     class="card-link btn btn-outline-success update-cart">Agregar</button>
@@ -23,8 +23,7 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="explanation" tabindex="-1" role="dialog" aria-labelledby="productinfo"
-        aria-hidden="true">
+    <div class="modal fade" id="modal-{{product.id}}" role="dialog" aria-labelledby="productinfo" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -36,10 +35,10 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12 d-flex align-items-stretch">
-                            <img src="{{product.imageURL}}" alt="{{product.id}}" class="img-thumbnail">
+                            <img src="{{product.imageURL}}" alt="{{product.id}}" class="rounded img-thumbnail img-size">
                         </div>
                         <div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12 d-flex align-items-stretch">
-                            {{product.description}}
+                            <p class="desc-text">{{product.description}}</p>
                         </div>
                     </div>
                 </div>

@@ -26,7 +26,7 @@ SECRET_KEY = 'j0gz8--(2_!*w1b4)j6gdtcy3s_tly5(x#(i7ps=qsbx7r-$u9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,7 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'store.apps.StoreConfig',
     'accounts.apps.AccountsConfig',
+    'sorl.thumbnail',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

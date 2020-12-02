@@ -28,3 +28,19 @@ img.table-img {
 	height: 70px;
 	width: 70px;
 }
+
+img.img-size {
+	width: 350x;
+	height: 350px;
+	object-fit: cover !important;
+}
+
+p.desc-text {
+	font-size: 0.8rem;
+}
+
+#btnSearch,
+#btnClear{
+    display: inline-block;
+    vertical-align: top;
+}

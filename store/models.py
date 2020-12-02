@@ -1,4 +1,5 @@
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User
+# from sorl.thumbnail import ImageField
 from django.db import models
 
 class Customer(models.Model):
@@ -14,7 +15,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=7, decimal_places=2, null=True)
     digital = models.BooleanField(default=False, null=True, blank=False)
     description = models.TextField(max_length=1000, null=True, blank=True)
-    thumbnail = models.ImageField(default='/images/card-thumbnail.jpg', null=True, blank=True)
+    thumbnail = models.ImageField(upload_to="images", default='/images/card-thumbnail.jpg', null=True, blank=True)
 
     def __str__(self):
         return self.name
