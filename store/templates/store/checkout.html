@@ -158,8 +158,12 @@
 
     const continueBtn = document.getElementById('btnSubmit');
     continueBtn.addEventListener('click', (e) => {
-        document.getElementById('btnSubmit').classList.add('d-none');
-        document.getElementById('payment-info').classList.remove('d-none');
+        if (total == 0) {
+            alert("No tienes productos");
+        } else {
+            document.getElementById('btnSubmit').classList.add('d-none');
+            document.getElementById('payment-info').classList.remove('d-none');
+        }
     });
 
     function submitPayment() {

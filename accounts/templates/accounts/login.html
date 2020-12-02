@@ -1,3 +1,4 @@
+{% load crispy_forms_tags %}
 {% load static %}
 
 {% block content %}
@@ -41,9 +42,9 @@
     <div class="container">
         <h3>Login</h3>
         <br />
-        <form action="{% url 'accounts:login' %}" method="post">
+        <form class="bootstrap4" action="{% url 'accounts:login' %}" method="post">
             {% csrf_token %}
-            {{ form }}
+            {{ form|crispy }}
             {% if request.GET.next %}
                 <input type="hidden" name="next" value="{{request.GET.next}}" />
             {% endif %}

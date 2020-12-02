@@ -21,6 +21,7 @@ def Store(request):
 
 @login_required(login_url="/accounts/login")
 def Dashboard(request):
+    items = []
     if request.user.is_authenticated:
         customer = request.user.customer
         orders = Order.objects.all()
@@ -78,7 +79,7 @@ def updateItem(request):
     if action == 'add':
         orderItem.quantity = (orderItem.quantity + 1)
     elif action == 'remove':
-        orderItem.quantity = (orderItem - 1)
+        orderItem.quantity = (orderItem.quantity - 1)
     
     orderItem.save()
 

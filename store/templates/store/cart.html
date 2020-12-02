@@ -18,7 +18,8 @@
                 <p id="topay"></p>
             </div>
             <div class="col col-xl-3 col-lg-3 col-md-4 col-sm-12">
-                <a class="card-link btn btn-outline-success" href="{% url 'coronas:checkout' %}" role="button">Checkout</a>
+                <a class="card-link btn btn-outline-success" href="{% url 'coronas:checkout' %}"
+                    role="button">Checkout</a>
             </div>
         </div>
     </div>
@@ -40,7 +41,17 @@
         <tr>
             <th scope="row"><img class="table-img" src="{{item.product.imageURL}}" /></th>
             <td><span>$</span>{{item.product.price|floatformat:2}}</td>
-            <td>{{item.quantity}}</td>
+            <td>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <button data-product="{{item.product.id}}" data-action="remove" type="button"
+                            class="btn btn-outline-danger btn-sm update-cart">-</button>
+                        <span>{{item.quantity}}</span>
+                        <button data-product="{{item.product.id}}" data-action="add" type="button"
+                            class="btn btn-outline-success btn-sm update-cart">+</button>
+                    </div>
+                </div>
+            </td>
             <td><span>$</span>{{item.get_total}}</td>
         </tr>
         {% endfor%}
