@@ -5,7 +5,7 @@
 <div class="row">
     {% for product in products %}
     <div class="col col-xl-3 col-lg-3 col-md-4 col-sm-12 d-flex align-items-stretch">
-        <div class="card border-secondary mb-3" style="width: 18rem;">
+        <div class="card mb-3" style="width: 18rem;">
             <img class="card-img-top" src="{{product.imageURL}}" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">${{product.price|floatformat:2}}</h5>
@@ -16,9 +16,9 @@
             <hr />
             <div class="card-body">
                 <button data-toggle="modal" data-target="#modal-{{product.id}}" type="button"
-                    class="card-link btn btn-outline-secondary">Ver</button>
+                    class="card-link btn btn-outline-secondary cafecito-ligero">Ver</button>
                 <button data-product="{{product.id}}" data-action="add" type="button"
-                    class="card-link btn btn-outline-success update-cart">Agregar</button>
+                    class="card-link btn btn-outline-success update-cart cafecito-oscuro">Agregar</button>
             </div>
         </div>
     </div>
@@ -27,7 +27,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">{{product.name}}</h5>
+                    <h5 class="modal-title">{{product.name}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -43,8 +43,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Regresar</button>
-                    <button type="button" class="btn btn-primary">Aceptar</button>
+                    <button type="button" class="btn btn-secondary cafecito-oscuro" data-dismiss="modal">Regresar</button>
                 </div>
             </div>
         </div>

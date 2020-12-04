@@ -1,8 +1,13 @@
-* {
-    margin: 0;
-    padding: 0;
+body {
+	background-color: rgba(141, 141, 141, 0.109) !important;
 }
 
+div.forms { width: 50%; }
+a.linknavidad { color: #93C16C; }
+a.linknavidad:hover { color: #93C16C;}
+a.linknavidad:active { color: #704638; }
+
+nav.christmas-nav { background-color: #B6001C !important; }
 #cart { color: white !important; }
 #cart-total {
 	display: block;
@@ -43,4 +48,125 @@ p.desc-text {
 #btnClear{
     display: inline-block;
     vertical-align: top;
+}
+
+section.header {
+	background-image: url("/static/images/header.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	overflow: hidden;
+	height: 20vw;
+	width: 100%;
+}
+
+div.overlay {
+    position: absolute;
+    float: left;
+    width: auto;
+    height: auto;
+    min-width: 100%;
+    min-height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 30;
+}
+
+div.overlay-text h2 {
+    color: white;
+    text-align: center;
+    font-family: "Roboto",sans-serif;
+    font-size: 4.5rem;
+    padding-top: 3cm;
+    font-weight: 300;
+}
+
+.marron {
+	background-color: #704638 !important;
+	border-color: #704638 !important;
+	width: 211px !important;
+	color: #ffffff !important;
+}
+
+.marron-large {
+	background-color: #704638 !important;
+	border-color: #704638 !important;
+	color: #ffffff !important;
+}
+
+.marron-redondo {
+	background-color: #704638 !important;
+	width: 338px !important;
+	border-radius: 50px;
+	margin-top: 0.5%;
+	color: #ffffff;
+}
+
+.cafecito-ligero:hover {
+	background: #704638 !important;
+	border-color: #704638 !important;
+	color: #ffffff !important;
+}
+
+.cafecito-ligero:active {
+	background: rgba(112, 70, 56, 0.2) !important;
+	border-color: #704638 !important;
+	color: #704638 !important;
+}
+
+.cafecito-ligero {
+	background: rgba(112, 70, 56, 0.2) !important;
+	border-color: #704638 !important;
+	color: #704638 !important;
+}
+
+button.cafecito-oscuro:hover {
+	background: rgba(112, 70, 56, 0.2) !important;
+	border-color: #704638;
+	color: #704638;
+}
+
+button.cafecito-oscuro {
+	background: #704638;
+	border-color: #704638;
+	color: #ffffff;
+}
+
+small.form-text { display: none; }
+
+div.body-content {
+	padding-bottom: 5%;
+}
+
+div.title {
+	margin-top: 2%;
+	margin-bottom: 2%;
+}
+
+.content {
+	min-height: calc(100vh - 256px);
+}
+.footer {
+	height: 200px;
+}
+
+footer {
+	background-color: #B6001C;
+	padding-top: 5%;
+	height: 200px;
+    color: #FFF; 
+}
+
+footer .footer-menu li {
+	display: inline-block;
+}	
+
+footer .footer-menu li a{
+	color: #FFF;
+	margin: 0px 10px;
+	text-decoration: none;
+}
+
+footer .fa{
+    color:#FFF;
+    font-size:30px;
 }

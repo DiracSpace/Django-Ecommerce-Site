@@ -22,45 +22,44 @@
                 </div>
             </div>
             <br />
-            <h3 class="shipping-info">Informacion de Envio</h3>
+            <h3 class="shipping-info text-muted">Información de Envío</h3>
             <div class="form-row shipping-info">
                 <div class="col-md-12 mb-12">
-                    <label for="address">Direccion: </label>
+                    <label for="address">Dirección: </label>
                     <input type="text" class="form-control" id="address" name="address" required>
                     <div class="invalid-feedback">
-                        No valido!
+                        No válido!
                     </div>
                 </div>
             </div>
             <br />
             <div class="form-row shipping-info">
                 <div class="col-md-6 mb-3">
-                    <label for="state">Estado</label>
+                    <label for="state">Estado: </label>
                     <input type="text" class="form-control" id="state" name="state" required>
                     <div class="invalid-feedback">
-                        No valido!
+                        No válido!
                     </div>
                 </div>
                 <div class="col-md-3 mb-3">
                     <label for="city">Ciudad: </label>
                     <input type="text" class="form-control" id="city" name="city" required>
                     <div class="invalid-feedback">
-                        No valido!
+                        No válido!
                     </div>
                 </div>
                 <div class="col-md-3 mb-3">
-                    <label for="zip">Postal: </label>
+                    <label for="zip">Código postal: </label>
                     <input type="text" class="form-control" id="zip" name="zip" required>
                     <div class="invalid-feedback">
-                        No valido!
+                        No válido!
                     </div>
                 </div>
             </div>
         </form>
-        <button id="btnSubmit" class="btn btn-secondary btn-lg btn-block" type="submit">Continuar</button>
-        <hr />
+        <button id="btnSubmit" class="btn btn-secondary btn-lg btn-block marron-large" type="submit">Continuar</button>
         <div id="payment-info" class="box-element d-none">
-            <small>Paypal Options</small>
+            <small>Opciones de pago</small>
             <div id="paypal-button-container"></div>
             <!-- <a id="makePayment" class="btn btn-secondary" href="#" role="button">Pagar</a> -->
         </div>
@@ -69,36 +68,36 @@
     <div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12">
         <div class="card">
             <div class="card-header">
-                <a class="card-link btn btn-outline-secondary" href="{% url 'coronas:cart' %}" role="button"><i
-                        class="fas fa-arrow-left"></i>
+                <a class="card-link btn btn-outline-secondary cafecito-ligero" href="{% url 'coronas:cart' %}"
+                    role="button"><i class="fas fa-arrow-left"></i>
                     Regresar a carrito</a>
             </div>
             <div class="card-body">
-                <h3>Resumen del Pedido</h3>
-                <hr />
+                <h5>Resumen del Pedido</h5>
                 <br />
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col">Producto</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col">Cantidad</th>
-                            <th scope="col">Total</th>
+                            <th style="text-align: center;" scope="col">Producto</th>
+                            <th style="text-align: center;" scope="col">Precio</th>
+                            <th style="text-align: center;" scope="col">Cantidad</th>
+                            <th style="text-align: center;" scope="col">Total</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for item in items %}
                         <tr>
-                            <th scope="row"><img class="table-img" src="{{item.product.imageURL}}" /></th>
-                            <td><span>$</span>{{item.product.price|floatformat:2}}</td>
-                            <td>{{item.quantity}}</td>
-                            <td><span>$</span>{{item.get_total}}</td>
+                            <th style="text-align: center;" scope="row"><img class="table-img"
+                                    src="{{item.product.imageURL}}" /></th>
+                            <td style="text-align: center;"><span>$</span>{{item.product.price|floatformat:2}}</td>
+                            <td style="text-align: center;">{{item.quantity}}</td>
+                            <td style="text-align: center;"><span>$</span>{{item.get_total}}</td>
                         </tr>
                         {% endfor%}
                     </tbody>
                 </table>
-                <h4>Cantidad Total: {{order.get_cart_items}}</h4>
-                <h4>Total Final: <span>$</span>{{order.get_cart_total|floatformat:2}}</h4>
+                <h5>Cantidad de productos: {{order.get_cart_items}}</h5>
+                <h5>Total a pagar: <span>$</span>{{order.get_cart_total|floatformat:2}}</h5>
             </div>
         </div>
     </div>

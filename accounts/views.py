@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
-from .forms import UserCreateForm
+from .forms import UserCreateForm, UserLoginForm
 from store.models import Customer
 
 def usersignup(request):
@@ -18,7 +18,7 @@ def usersignup(request):
 
 def userlogin(request):
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
+        form = UserLoginForm(data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
@@ -27,7 +27,7 @@ def userlogin(request):
             else:
                 return redirect('coronas:store')
     else:
-        form = AuthenticationForm()
+        form = UserLoginForm()
     context = {'form' : form}
     return render(request, 'accounts/login.html', context)
 

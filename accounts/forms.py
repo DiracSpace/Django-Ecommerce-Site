@@ -1,9 +1,12 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django import forms
 
 class UserCreateForm(UserCreationForm):
-	email = forms.EmailField(required=True)
+	username = forms.CharField(label="Nombre de usuario:", required=True)
+	email = forms.EmailField(label="Correo electrónico:",required=True)
+	password1 = forms.CharField(label="Contraseña:", required=True, widget=forms.PasswordInput)
+	password2 = forms.CharField(label="Confirmar contraseña:", required=True, widget=forms.PasswordInput)
 
 	class Meta:
 		model = User
@@ -15,3 +18,11 @@ class UserCreateForm(UserCreationForm):
 			if commit:
 				user.save()
 			return user
+
+class UserLoginForm(AuthenticationForm):
+	username = forms.CharField(label="Nombre de usuario:", required=True)
+	password = forms.CharField(label="Contraseña:", required=True, widget=forms.PasswordInput)
+
+	class Meta:
+		model = User
+		fields = ("username", "password")

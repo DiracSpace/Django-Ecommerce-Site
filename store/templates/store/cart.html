@@ -2,59 +2,61 @@
 {% load static %}
 
 {% block content %}
-<div class="card">
-    <div class="card-header">
-        <a class="card-link btn btn-outline-secondary" href="{% url 'coronas:store' %}" role="button"><i
-                class="fas fa-arrow-left"></i>
-            Regresar</a>
-    </div>
-    <div class="card-body">
-        <div class="row" style="text-align: center;">
-            <div class="col col-xl-3 col-lg-3 col-md-4 col-sm-12">
-                <p>Cantidad Total: {{order.get_cart_items}}</p>
-            </div>
-            <div class="col col-xl-3 col-lg-3 col-md-4 col-sm-12">
-                <p>Total Final: <span>$</span>{{order.get_cart_total|floatformat:2}}</p>
-                <p id="topay"></p>
-            </div>
-            <div class="col col-xl-3 col-lg-3 col-md-4 col-sm-12">
-                <a class="card-link btn btn-outline-success" href="{% url 'coronas:checkout' %}"
-                    role="button">Checkout</a>
+<section>
+    <div class="card">
+        <div class="card-header">
+            <a class="card-link btn btn-outline-secondary cafecito-ligero" href="{% url 'coronas:store' %}"
+                role="button"><i class="fas fa-arrow-left"></i>
+                Regresar</a>
+        </div>
+        <div class="card-body">
+            <div class="row" style="text-align: center;">
+                <div class="col col-xl-3 col-lg-3 col-md-4 col-sm-12">
+                    <p>Cantidad de productos: {{order.get_cart_items}}</p>
+                </div>
+                <div class="col col-xl-3 col-lg-3 col-md-4 col-sm-12">
+                    <p>Total a pagar: <span>$</span>{{order.get_cart_total|floatformat:2}}</p>
+                    <p id="topay"></p>
+                </div>
+                <div class="col col-xl-3 col-lg-3 col-md-4 col-sm-12">
+                    <a class="card-link btn btn-outline-success marron" href="{% url 'coronas:checkout' %}"
+                        role="button">Comprar</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<br />
+    <br />
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th scope="col">Producto</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Cantidad</th>
-            <th scope="col">Total</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in items %}
-        <tr>
-            <th scope="row"><img class="table-img" src="{{item.product.imageURL}}" /></th>
-            <td><span>$</span>{{item.product.price|floatformat:2}}</td>
-            <td>
-                <div class="row">
-                    <div class="col-sm-12 text-center">
-                        <button data-product="{{item.product.id}}" data-action="remove" type="button"
-                            class="btn btn-outline-danger btn-sm update-cart">-</button>
-                        <span>{{item.quantity}}</span>
-                        <button data-product="{{item.product.id}}" data-action="add" type="button"
-                            class="btn btn-outline-success btn-sm update-cart">+</button>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="text-align: center;" scope="col">Producto</th>
+                <th style="text-align: center;" scope="col">Precio</th>
+                <th style="text-align: center;" scope="col">Cantidad</th>
+                <th style="text-align: center;" scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <th style="text-align: center;" scope="row"><img class="table-img" src="{{item.product.imageURL}}" /></th>
+                <td style="text-align: center;"><span>$</span>{{item.product.price|floatformat:2}}</td>
+                <td style="text-align: center;">
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <button data-product="{{item.product.id}}" data-action="remove" type="button"
+                                class="btn btn-outline-danger btn-sm update-cart">-</button>
+                            <span>{{item.quantity}}</span>
+                            <button data-product="{{item.product.id}}" data-action="add" type="button"
+                                class="btn btn-outline-success btn-sm update-cart">+</button>
+                        </div>
                     </div>
-                </div>
-            </td>
-            <td><span>$</span>{{item.get_total}}</td>
-        </tr>
-        {% endfor%}
-    </tbody>
-</table>
+                </td>
+                <td style="text-align: center;"><span>$</span>{{item.get_total}}</td>
+            </tr>
+            {% endfor%}
+        </tbody>
+    </table>
+</section>
 {% endblock content %}

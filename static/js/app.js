@@ -28,7 +28,7 @@ function updateCart(id, action) {
         method: 'POST',
         body: JSON.stringify(payload),
         headers: {
-            'Content-Type' : 'application/json; charset=UTF-8',
+            'Content-Type' : 'application/json; charset=utf-8',
             'X-CSRFToken' : csrftoken,
         }
     })
